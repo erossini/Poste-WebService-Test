@@ -1,0 +1,55 @@
+﻿<Window x:Class="WSTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="616.464" Width="570.000" ResizeMode="NoResize" Icon="ico-home-bollettino.ico">
+    <Window.Effect>
+        <DropShadowEffect/>
+    </Window.Effect>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="447*"/>
+            <RowDefinition Height="32*"/>
+        </Grid.RowDefinitions>
+        <Button Content="First request Bollettino Blank" HorizontalAlignment="Left" Margin="16,43,0,0" VerticalAlignment="Top" Width="200" Click="Button_Click" Height="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,50,0,0" TextWrapping="Wrap" Text="Transaction ID" VerticalAlignment="Top" Width="80"/>
+        <TextBlock x:Name="textBlockTransBlank" HorizontalAlignment="Left" Margin="393,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <TextBlock x:Name="textBlockError" Margin="10,0,10,10" TextWrapping="Wrap" Foreground="Red" FontSize="14" FontWeight="Bold" Grid.Row="1" Height="32" VerticalAlignment="Bottom"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="135" Margin="234,43,0,0" Stroke="Black" VerticalAlignment="Top" Width="2"/>
+        <Button x:Name="btnConfirmBlank" Content="Confirm Bollettino Blank" HorizontalAlignment="Left" Margin="16,78,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnConfirmBlank_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,85,0,0" TextWrapping="Wrap" Text="Confirm transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockConfirmBlank" HorizontalAlignment="Left" Margin="393,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <Button x:Name="btnCancelBlank" Content="Cancel Bollettino Blank" HorizontalAlignment="Left" Margin="16,113,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnCancelBlank_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,120,0,0" TextWrapping="Wrap" Text="Cancel transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockCancelBlank" HorizontalAlignment="Left" Margin="393,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <Button x:Name="btnRevalseBlank" Content="Revalse Bollettino Blank" HorizontalAlignment="Left" Margin="16,148,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnRevalseBlank_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,155,0,0" TextWrapping="Wrap" Text="Revalse transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockRevalseBlank" HorizontalAlignment="Left" Margin="393,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Bollettini Blank" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button Content="First request Bollettino Prefilled" HorizontalAlignment="Left" Margin="16,230,0,0" VerticalAlignment="Top" Width="200" Height="30" Click="Button_Click_1"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,237,0,0" TextWrapping="Wrap" Text="Transaction ID" VerticalAlignment="Top" Width="80"/>
+        <TextBlock x:Name="textBlockTransPrefilled" HorizontalAlignment="Left" Margin="393,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="135" Margin="234,230,0,0" Stroke="Black" VerticalAlignment="Top" Width="2"/>
+        <Button x:Name="btnConfirmPrefilled" Content="Confirm Bollettino Prefilled" HorizontalAlignment="Left" Margin="16,265,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnConfirmPrefilled_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,272,0,0" TextWrapping="Wrap" Text="Confirm transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockConfirmPrefilled" HorizontalAlignment="Left" Margin="393,272,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <Button x:Name="btnCancelPrefilled" Content="Cancel Bollettino Prefilled" HorizontalAlignment="Left" Margin="16,300,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnCancelPrefilled_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,307,0,0" TextWrapping="Wrap" Text="Cancel transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockCancelPrefilled" HorizontalAlignment="Left" Margin="393,307,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <Button x:Name="btnRevalsePrefilled" Content="Revalse Bollettino Prefilled" HorizontalAlignment="Left" Margin="16,335,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnRevalsePrefilled_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,342,0,0" TextWrapping="Wrap" Text="Revalse transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockRevalsePrefilled" HorizontalAlignment="Left" Margin="393,342,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,197,0,0" TextWrapping="Wrap" Text="Bollettini Prefilled" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button Content="First request PostePay" HorizontalAlignment="Left" Margin="16,422,0,0" VerticalAlignment="Top" Width="200" Height="30" Click="Button_Click_2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,429,0,0" TextWrapping="Wrap" Text="Transaction ID" VerticalAlignment="Top" Width="80"/>
+        <TextBlock x:Name="textBlockTransPostePay" HorizontalAlignment="Left" Margin="393,429,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="110" Margin="234,422,0,0" Stroke="Black" VerticalAlignment="Top" Width="2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,464,0,0" TextWrapping="Wrap" Text="Confirm transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockConfirmPostePay" HorizontalAlignment="Left" Margin="393,464,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <TextBlock HorizontalAlignment="Left" Margin="259,499,0,0" TextWrapping="Wrap" Text="Cancel transaction" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockCancelPostePay" HorizontalAlignment="Left" Margin="393,499,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Foreground="#FF0CC962"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,389,0,0" TextWrapping="Wrap" Text="PostePay" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="btnConfirmPostePay" Content="Confirm PostePay" HorizontalAlignment="Left" Margin="16,457,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnConfirmPostePay_Click"/>
+        <Button x:Name="btnCancelPostePay" Content="Cancel PostePay" HorizontalAlignment="Left" Margin="16,492,0,0" VerticalAlignment="Top" Width="200" Height="30" IsEnabled="False" Click="btnCancelPostePay_Click"/>
+
+    </Grid>
+</Window>

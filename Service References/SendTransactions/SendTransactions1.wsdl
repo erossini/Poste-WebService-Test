@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://pstalive.ipagoo.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://pstalive.ipagoo.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://pstalive.ipagoo.com">
+      <s:element name="SendCancelBollettinoBianco">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCancelBollettinoBiancoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCancelBollettinoBiancoResult" type="tns:CancelledPaymentDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CancelledPaymentDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePaymentSlipResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BasePaymentSlipResponse" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseResponse" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendFirstRequestBollettinoBianco">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dt" type="tns:BlankVerificationDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BlankVerificationDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseVerification">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AccountHolder" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Reason" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseVerification">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePaymentRequest">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:PostalSlipModel" />
+              <s:element minOccurs="0" maxOccurs="1" name="AccountNum" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequestDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Payer" type="tns:PayerDTO" />
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentType" type="tns:PaymentType" />
+              <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BasePaymentRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SourceIP" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PostalSlipModel">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any" />
+          <s:enumeration value="TD896" />
+          <s:enumeration value="TD674" />
+          <s:enumeration value="TD123" />
+          <s:enumeration value="TD451" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="PayerDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StateOrProvince" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PaymentType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any" />
+          <s:enumeration value="Cash" />
+          <s:enumeration value="DebitCard" />
+          <s:enumeration value="CreditCard" />
+          <s:enumeration value="Mixed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SendFirstRequestBollettinoBiancoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFirstRequestBollettinoBiancoResult" type="tns:PaymentVerifiedDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaymentVerifiedDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePaymentSlipResponse">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Fees" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AccountNum" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="AccountHolder" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SendConfirmBollettinoBianco">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmBollettinoBiancoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendConfirmBollettinoBiancoResult" type="tns:PaidSlipDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaidSlipDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePaymentSlipResponse">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="Fee" type="s:decimal" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SendReverseBollettinoBianco">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReverseBollettinoBiancoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendReverseBollettinoBiancoResult" type="tns:ReversedPaymentDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ReversedPaymentDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePaymentSlipResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionId" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SendCancelBollettinoPrefilled">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCancelBollettinoPrefilledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCancelBollettinoPrefilledResult" type="tns:CancelledPaymentDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFirstRequestBollettinoPrefilled">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pv" type="tns:PrefilledVerificationDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PrefilledVerificationDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseVerification">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentSlipNum" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SendFirstRequestBollettinoPrefilledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFirstRequestBollettinoPrefilledResult" type="tns:PaymentVerifiedDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmBollettinoPrefilled">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmBollettinoPrefilledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendConfirmBollettinoPrefilledResult" type="tns:PaidSlipDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReverseBollettinoPrefilled">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReverseBollettinoPrefilledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendReverseBollettinoPrefilledResult" type="tns:ReversedPaymentDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCancelPostePay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCancelPostePayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCancelPostePayResult" type="tns:CancelledTransactionDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="CancelledTransactionDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePostepayResponse" />
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BasePostepayResponse" abstract="true">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseResponse">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SendFirstRequestPostePay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vu" type="tns:VerifyUserDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="VerifyUserDTO">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BasePaymentRequest">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Customer" type="tns:CustomerDTO" />
+              <s:element minOccurs="0" maxOccurs="1" name="CardHolder" type="tns:CardHolderDTO" />
+              <s:element minOccurs="0" maxOccurs="1" name="CardNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+              <s:element minOccurs="0" maxOccurs="1" name="Currency" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="PaymentType" type="tns:PaymentType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="CustomerDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxIdCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Country" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="IdentityDocumentId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocumentExpireDate" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CardHolderDTO">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TaxIdCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmailAddress" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendFirstRequestPostePayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFirstRequestPostePayResult" type="tns:ConfirmPostePayIPPS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ConfirmPostePayIPPS">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaxTopUpValue" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendConfirmPostePay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Amount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmPostePayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendConfirmPostePayResult" type="tns:PaidPostePayIPPS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaidPostePayIPPS">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodUffPostale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SezUffPostale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UffVirtuale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodStruPag" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataAccettazione" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgIncasso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImportoBollettino" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissioniAzienda" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissioneAggiuntiva" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendCancelBollettino">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCancelBollettinoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCancelBollettinoResult" type="tns:CancelledPaymentDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmBollettino">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendConfirmBollettinoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendConfirmBollettinoResult" type="tns:PaidSlipIPPS" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PaidSlipIPPS">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Code" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RequestId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodUffPostale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SezUffPostale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UffVirtuale" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CodStruPag" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DataAccettazione" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProgIncasso" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ImportoBollettino" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissioniAzienda" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommissioneAggiuntiva" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="NumBollettino" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendReverseBollettino">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MemberCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TransactionID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReverseBollettinoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendReverseBollettinoResult" type="tns:ReversedPaymentDTO" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendCancelBollettinoBiancoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCancelBollettinoBianco" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelBollettinoBiancoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCancelBollettinoBiancoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFirstRequestBollettinoBiancoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFirstRequestBollettinoBianco" />
+  </wsdl:message>
+  <wsdl:message name="SendFirstRequestBollettinoBiancoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFirstRequestBollettinoBiancoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmBollettinoBiancoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendConfirmBollettinoBianco" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmBollettinoBiancoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendConfirmBollettinoBiancoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendReverseBollettinoBiancoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendReverseBollettinoBianco" />
+  </wsdl:message>
+  <wsdl:message name="SendReverseBollettinoBiancoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendReverseBollettinoBiancoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelBollettinoPrefilledSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCancelBollettinoPrefilled" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelBollettinoPrefilledSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCancelBollettinoPrefilledResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFirstRequestBollettinoPrefilledSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFirstRequestBollettinoPrefilled" />
+  </wsdl:message>
+  <wsdl:message name="SendFirstRequestBollettinoPrefilledSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFirstRequestBollettinoPrefilledResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmBollettinoPrefilledSoapIn">
+    <wsdl:part name="parameters" element="tns:SendConfirmBollettinoPrefilled" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmBollettinoPrefilledSoapOut">
+    <wsdl:part name="parameters" element="tns:SendConfirmBollettinoPrefilledResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendReverseBollettinoPrefilledSoapIn">
+    <wsdl:part name="parameters" element="tns:SendReverseBollettinoPrefilled" />
+  </wsdl:message>
+  <wsdl:message name="SendReverseBollettinoPrefilledSoapOut">
+    <wsdl:part name="parameters" element="tns:SendReverseBollettinoPrefilledResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelPostePaySoapIn">
+    <wsdl:part name="parameters" element="tns:SendCancelPostePay" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelPostePaySoapOut">
+    <wsdl:part name="parameters" element="tns:SendCancelPostePayResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFirstRequestPostePaySoapIn">
+    <wsdl:part name="parameters" element="tns:SendFirstRequestPostePay" />
+  </wsdl:message>
+  <wsdl:message name="SendFirstRequestPostePaySoapOut">
+    <wsdl:part name="parameters" element="tns:SendFirstRequestPostePayResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmPostePaySoapIn">
+    <wsdl:part name="parameters" element="tns:SendConfirmPostePay" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmPostePaySoapOut">
+    <wsdl:part name="parameters" element="tns:SendConfirmPostePayResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelBollettinoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCancelBollettino" />
+  </wsdl:message>
+  <wsdl:message name="SendCancelBollettinoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCancelBollettinoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmBollettinoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendConfirmBollettino" />
+  </wsdl:message>
+  <wsdl:message name="SendConfirmBollettinoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendConfirmBollettinoResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendReverseBollettinoSoapIn">
+    <wsdl:part name="parameters" element="tns:SendReverseBollettino" />
+  </wsdl:message>
+  <wsdl:message name="SendReverseBollettinoSoapOut">
+    <wsdl:part name="parameters" element="tns:SendReverseBollettinoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SendTransactionsSoap">
+    <wsdl:operation name="SendCancelBollettinoBianco">
+      <wsdl:input message="tns:SendCancelBollettinoBiancoSoapIn" />
+      <wsdl:output message="tns:SendCancelBollettinoBiancoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestBollettinoBianco">
+      <wsdl:input message="tns:SendFirstRequestBollettinoBiancoSoapIn" />
+      <wsdl:output message="tns:SendFirstRequestBollettinoBiancoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettinoBianco">
+      <wsdl:input message="tns:SendConfirmBollettinoBiancoSoapIn" />
+      <wsdl:output message="tns:SendConfirmBollettinoBiancoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettinoBianco">
+      <wsdl:input message="tns:SendReverseBollettinoBiancoSoapIn" />
+      <wsdl:output message="tns:SendReverseBollettinoBiancoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelBollettinoPrefilled">
+      <wsdl:input message="tns:SendCancelBollettinoPrefilledSoapIn" />
+      <wsdl:output message="tns:SendCancelBollettinoPrefilledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestBollettinoPrefilled">
+      <wsdl:input message="tns:SendFirstRequestBollettinoPrefilledSoapIn" />
+      <wsdl:output message="tns:SendFirstRequestBollettinoPrefilledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettinoPrefilled">
+      <wsdl:input message="tns:SendConfirmBollettinoPrefilledSoapIn" />
+      <wsdl:output message="tns:SendConfirmBollettinoPrefilledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettinoPrefilled">
+      <wsdl:input message="tns:SendReverseBollettinoPrefilledSoapIn" />
+      <wsdl:output message="tns:SendReverseBollettinoPrefilledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelPostePay">
+      <wsdl:input message="tns:SendCancelPostePaySoapIn" />
+      <wsdl:output message="tns:SendCancelPostePaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestPostePay">
+      <wsdl:input message="tns:SendFirstRequestPostePaySoapIn" />
+      <wsdl:output message="tns:SendFirstRequestPostePaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmPostePay">
+      <wsdl:input message="tns:SendConfirmPostePaySoapIn" />
+      <wsdl:output message="tns:SendConfirmPostePaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelBollettino">
+      <wsdl:input message="tns:SendCancelBollettinoSoapIn" />
+      <wsdl:output message="tns:SendCancelBollettinoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettino">
+      <wsdl:input message="tns:SendConfirmBollettinoSoapIn" />
+      <wsdl:output message="tns:SendConfirmBollettinoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettino">
+      <wsdl:input message="tns:SendReverseBollettinoSoapIn" />
+      <wsdl:output message="tns:SendReverseBollettinoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SendTransactionsSoap" type="tns:SendTransactionsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendCancelBollettinoBianco">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendCancelBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestBollettinoBianco">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendFirstRequestBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettinoBianco">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendConfirmBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettinoBianco">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendReverseBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelBollettinoPrefilled">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendCancelBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestBollettinoPrefilled">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendFirstRequestBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettinoPrefilled">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendConfirmBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettinoPrefilled">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendReverseBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelPostePay">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendCancelPostePay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestPostePay">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendFirstRequestPostePay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmPostePay">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendConfirmPostePay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelBollettino">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendCancelBollettino" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettino">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendConfirmBollettino" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettino">
+      <soap:operation soapAction="http://pstalive.ipagoo.com/SendReverseBollettino" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SendTransactionsSoap12" type="tns:SendTransactionsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendCancelBollettinoBianco">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendCancelBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestBollettinoBianco">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendFirstRequestBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettinoBianco">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendConfirmBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettinoBianco">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendReverseBollettinoBianco" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelBollettinoPrefilled">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendCancelBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestBollettinoPrefilled">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendFirstRequestBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettinoPrefilled">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendConfirmBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettinoPrefilled">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendReverseBollettinoPrefilled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelPostePay">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendCancelPostePay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFirstRequestPostePay">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendFirstRequestPostePay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmPostePay">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendConfirmPostePay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCancelBollettino">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendCancelBollettino" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendConfirmBollettino">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendConfirmBollettino" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReverseBollettino">
+      <soap12:operation soapAction="http://pstalive.ipagoo.com/SendReverseBollettino" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SendTransactions">
+    <wsdl:port name="SendTransactionsSoap" binding="tns:SendTransactionsSoap">
+      <soap:address location="https://pstalive.ipagoo.com/ws/SendTransactions.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SendTransactionsSoap12" binding="tns:SendTransactionsSoap12">
+      <soap12:address location="https://pstalive.ipagoo.com/ws/SendTransactions.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
